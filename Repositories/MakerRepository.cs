@@ -71,8 +71,10 @@ namespace Test.Repositories
             using var conn = new SqlConnection(_config.GetConnectionString("Default"));
             await conn.OpenAsync();
 
-            var cmd = new SqlCommand("INSERT INTO Makers (Name) VALUES (@name); SELECT SCOPE_IDENTITY();", conn);
+            var cmd = new SqlCommand("INSERT INTO Makers (Id, Name) VALUES (@id, @name); SELECT SCOPE_IDENTITY();", conn);
+            cmd.Parameters.AddWithValue("@id", request.Id);
             cmd.Parameters.AddWithValue("@name", request.Name);
+
 
 
         }
